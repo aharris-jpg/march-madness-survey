@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Estimated Cost of March Madness at Work</title>
+
+<style>
+  :root{
+    --bg:#f2f4f7;
+    --card:#ffffff;
+    --surface:#f7f8fa;
+    --border:#e6e9ee;
+    --border2:#dde3ea;
+    --text:#0b0f14;
+    --muted:#5b6675;
+    --muted2:#7a8794;
+
+    /* premium accents */
+    --bluebg:#f2f6ff;
+    --bluebd:#cfe0ff;
+    --shadow:0 18px 40px rgba(14, 28, 45, 0.10);
+    --shadowSoft:0 10px 24px rgba(14, 28, 45, 0.08);
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    padding:30px;
+    color:var(--text);
+  }
+
+  /* premium outer card */
+  .canvas{
+    width:1080px;
+    margin:auto;
+    background:rgba(255,255,255,0.92);
+    border:1px solid rgba(230,233,238,0.9);
+    border-radius:30px;
+    padding:66px 70px 46px 70px;
+    position:relative;
+    overflow:hidden;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+  }
+
+  /* subtle vignette + sheen */
+  .canvas:before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    background:
+      radial-gradient(900px 380px at 30% 0%, rgba(219,234,255,0.55), rgba(255,255,255,0) 60%),
+      radial-gradient(820px 360px at 90% 30%, rgba(220,220,255,0.22), rgba(255,255,255,0) 62%),
+      radial-gradient(900px 520px at 50% 110%, rgba(0,0,0,0.04), rgba(255,255,255,0) 70%);
+    pointer-events:none;
+  }
+
+  /* decorative money — pushed outward */
+  .money{
+    position:absolute;
+    pointer-events:none;
+    opacity:.26;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,0.10));
+  }
+  .m1{ width:240px; top:6px; left:-150px; transform:rotate(-10deg); opacity:.20; } /* moved out */
+  .m2{ width:240px; top:26px; right:-150px; transform:rotate(10deg); opacity:.24; }
+  .m3{ width:220px; bottom:42px; left:-150px; transform:rotate(9deg); opacity:.18; }
+  .m4{ width:280px; bottom:14px; right:-170px; transform:rotate(-9deg); opacity:.20; }
+
+  .kicker{
+    position:relative;
+    z-index:1;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted2);
+    margin-bottom:10px;
+  }
+
+  h1{
+    position:relative;
+    z-index:1;
+    margin:0;
+    font-size:58px;
+    letter-spacing:-0.03em;
+    line-height:1.06;
+    max-width:900px;
+  }
+
+  .sub{
+    position:relative;
+    z-index:1;
+    margin:12px 0 0 0;
+    font-size:19px;
+    color:var(--muted);
+    line-height:1.38;
+    max-width:920px;
+  }
+
+  /* HERO — premium card inside */
+  .hero{
+    position:relative;
+    z-index:1;
+    margin-top:26px;
+    background: var(--bluebg);
+    border:2px solid var(--bluebd);
+    border-radius:26px;
+    padding:24px 24px 18px 24px;
+    box-shadow: var(--shadowSoft);
+    overflow:hidden;
+  }
+
+  /* subtle watermark only */
+  .watermark{
+    position:absolute;
+    right:-26px;
+    top:-52px;
+    width:300px;
+    height:300px;
+    opacity:.04; /* reduced */
+    transform:rotate(8deg);
+    pointer-events:none;
+  }
+
+  /* Top row */
+  .heroHeader{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+  }
+
+  /* premium pill */
+  .pill{
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+    background: rgba(255,255,255,0.85);
+    border:1px solid rgba(207,224,255,0.95);
+    padding:8px 12px;
+    border-radius:999px;
+    color:var(--text);
+    white-space:nowrap;
+    box-shadow: 0 8px 18px rgba(20,35,60,0.06);
+  }
+
+  .bigNumber{
+    margin:0;
+    font-size:76px;
+    font-weight:950;
+    letter-spacing:-0.04em;
+    line-height:1;
+  }
+
+  .bigLabel{
+    margin:8px 0 0 0;
+    font-size:15px;
+    color:var(--muted);
+    line-height:1.35;
+    max-width:760px;
+  }
+  .bigLabel b{ color:var(--text); }
+
+  .steps{
+    margin-top:16px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:12px;
+  }
+
+  .step{
+    background: rgba(255,255,255,0.92);
+    border:1px solid rgba(230,233,238,0.9);
+    border-radius:18px;
+    padding:14px 14px 13px 14px;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    min-height:98px;
+    box-shadow: 0 10px 18px rgba(14,28,45,0.05);
+  }
+
+  .icon{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    background: var(--surface);
+    border:1px solid var(--border2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px;
+    flex:0 0 auto;
+  }
+  .icon img{ width:28px; height:28px; object-fit:contain; }
+
+  .stepVal{
+    margin:0;
+    font-size:22px;
+    font-weight:950;
+    letter-spacing:-0.02em;
+    line-height:1.1;
+  }
+  .stepTxt{
+    margin:6px 0 0 0;
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.25;
+  }
+  .stepTxt b{ color:var(--text); }
+
+  /* Premium “method bar” with subtle divider */
+  .equation{
+    margin-top:12px;
+    background: rgba(255,255,255,0.94);
+    border:1px solid rgba(230,233,238,0.95);
+    border-radius:18px;
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    box-shadow: 0 10px 18px rgba(14,28,45,0.05);
+  }
+
+  .eqLeft{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+  }
+
+  .eqKicker{
+    margin:0;
+    font-size:11px;
+    font-weight:950;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted2);
+  }
+
+  .eqLine{
+    margin:0;
+    font-size:16px;
+    color:var(--muted);
+    line-height:1.25;
+  }
+  .eqLine b{ color:var(--text); }
+
+  .eqRight{
+    text-align:right;
+    padding-left:14px;
+    border-left:1px solid rgba(230,233,238,0.95); /* premium separator */
+    min-width:220px;
+  }
+  .eqResult{
+    margin:0;
+    font-size:30px;
+    font-weight:950;
+    letter-spacing:-0.03em;
+    line-height:1;
+  }
+  .eqNote{
+    margin:6px 0 0 0;
+    font-size:13px;
+    color:var(--muted);
+  }
+
+  /* Footer — clearer contrast & tighter */
+  .footer{
+    position:relative;
+    z-index:1;
+    margin-top:16px;
+    padding-top:12px;
+    border-top:1px solid rgba(230,233,238,0.95);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:18px;
+  }
+
+  .footnote{
+    font-size:12.5px;
+    color:var(--muted);
+    line-height:1.35;
+    max-width:780px;
+  }
+
+  .logo{
+    height:42px;
+    width:auto;
+  }
+
+  @media (max-width:1120px){
+    body{ padding:14px; }
+    .canvas{ width:100%; padding:44px 24px 40px 24px; }
+    h1{ font-size:44px; }
+    .steps{ grid-template-columns:repeat(2, 1fr); }
+    .bigNumber{ font-size:60px; }
+    .eqRight{ min-width:auto; }
+  }
+</style>
+</head>
+
+<body>
+<section class="canvas">
+
+  <!-- decor -->
+  <img class="money m1" src="https://i.postimg.cc/QNR7zz8q/download-removebg-preview-(1).png" alt="">
+  <img class="money m2" src="https://i.postimg.cc/vBxBLQVb/flying-stacks-money-hd-transparent-4-removebg-preview.png" alt="">
+  <img class="money m3" src="https://i.postimg.cc/Dzy4sk64/pngimg-com-money-PNG3546-removebg-preview.png" alt="">
+  <img class="money m4" src="https://i.postimg.cc/XYgyp7wg/c-HJpdm-F0ZS9sci9pb-WFn-ZXMvd2Vic2l0ZS8y-MDI0LTA2L3Jhd3Bpe-GVs-X29m-Zmlj-ZV8y-OV9pb-WFn-ZV9v-Zl9kb2x.png" alt="">
+
+  <div class="kicker">Productivity impact</div>
+  <h1>The Estimated Cost of March Madness at Work</h1>
+  <p class="sub">A simple estimate of how time spent following games during the workday can add up across the U.S.</p>
+
+  <div class="hero">
+    <img class="watermark" src="https://i.postimg.cc/vBxBLQVb/flying-stacks-money-hd-transparent-4-removebg-preview.png" alt="">
+
+    <div class="heroHeader">
+      <div>
+        <div class="bigNumber">$13.1B</div>
+        <p class="bigLabel"><b>Estimated productivity lost</b> during March Madness, based on self-reported daily time spent following the tournament.</p>
+      </div>
+      <div class="pill">Estimated total</div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="icon">
+          <img src="https://i.postimg.cc/Dzy4sk64/pngimg-com-money-PNG3546-removebg-preview.png" alt="">
+        </div>
+        <div>
+          <p class="stepVal">1.5 hrs/day</p>
+          <p class="stepTxt">average time workers spend <b>following March Madness</b></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="icon">
+          <img src="https://i.postimg.cc/QNR7zz8q/download-removebg-preview-(1).png" alt="">
+        </div>
+        <div>
+          <p class="stepVal">10.5 hrs</p>
+          <p class="stepTxt">over <b>7 weekday</b> game days (1.5 × 7)</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="icon">
+          <img src="https://i.postimg.cc/XYgyp7wg/c-HJpdm-F0ZS9sci9pb-WFn-ZXMvd2Vic2l0ZS8y-MDI0LTA2L3Jhd3Bpe-GVs-X29m-Zmlj-ZV8y-OV9pb-WFn-ZV9v-Zl9kb2x.png" alt="">
+        </div>
+        <div>
+          <p class="stepVal">$107.22/hr</p>
+          <p class="stepTxt">estimated productivity value per hour (BLS)</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="icon">
+          <img src="https://i.postimg.cc/vBxBLQVb/flying-stacks-money-hd-transparent-4-removebg-preview.png" alt="">
+        </div>
+        <div>
+          <p class="stepVal">11.6M</p>
+          <p class="stepTxt">estimated <b>active workers</b> following March Madness</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="equation">
+      <div class="eqLeft">
+        <p class="eqKicker">Estimation method</p>
+        <p class="eqLine"><b>10.5 hours</b> × <b>$107.22</b> × <b>11.6M workers</b> ≈ <b>$13.1B</b></p>
+      </div>
+      <div class="eqRight">
+        <p class="eqResult">$1,125</p>
+        <p class="eqNote">estimated cost per worker</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footnote">
+      Source: Action Network survey of 3,000+ U.S. workers. Percentages rounded. Productivity value per hour uses U.S. Bureau of Labor Statistics output-per-hour as a proxy. “11.6M workers” scales survey results to the U.S. workforce and adjusts for typical vacation/sick absence.
+    </div>
+    <img class="logo" src="https://i.postimg.cc/YCcD38Lh/images.png" alt="Action Network logo">
+  </div>
+
+</section>
+</body>
+</html>
