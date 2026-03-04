@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perfect Bracket Sacrifices</title>
+
+<style>
+
+body{
+margin:0;
+background:#f2f4f7;
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+padding:30px;
+}
+
+/* MAIN CANVAS */
+
+.canvas{
+width:1080px;
+margin:auto;
+background:#ffffff;
+border-radius:28px;
+padding:70px 70px 90px 70px;
+box-sizing:border-box;
+display:flex;
+flex-direction:column;
+}
+
+.kicker{
+font-size:14px;
+letter-spacing:.12em;
+text-transform:uppercase;
+color:#7a8794;
+margin-bottom:10px;
+}
+
+h1{
+margin:0;
+font-size:60px;
+letter-spacing:-0.02em;
+line-height:1.05;
+}
+
+.sub{
+margin-top:12px;
+font-size:22px;
+color:#5b6675;
+max-width:900px;
+}
+
+/* HERO CARD */
+
+.hero{
+margin-top:36px;
+background:#f6f7f9;
+border:1px solid #e6e9ee;
+border-radius:24px;
+padding:24px 28px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:24px;
+}
+
+.heroLeft{
+display:flex;
+align-items:center;
+gap:18px;
+}
+
+.heroIcon{
+width:90px;
+height:90px;
+border-radius:18px;
+background:#fff;
+border:1px solid #e0e5ea;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+padding:10px;
+}
+
+.heroIcon img{
+width:70px;
+height:70px;
+object-fit:contain;
+}
+
+.heroPct{
+font-size:74px;
+font-weight:900;
+line-height:1;
+margin:0;
+letter-spacing:-0.03em;
+}
+
+.heroLabel{
+margin:0;
+font-size:20px;
+color:#5b6675;
+}
+
+.heroLabel b{
+color:#0b0f14;
+}
+
+.heroTag{
+font-size:12px;
+font-weight:800;
+letter-spacing:.08em;
+text-transform:uppercase;
+color:#0b0f14;
+background:#fff;
+border:1px solid #e6e9ee;
+padding:8px 12px;
+border-radius:999px;
+}
+
+/* GRID */
+
+.grid{
+margin-top:24px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:22px;
+}
+
+.box{
+background:#f6f7f9;
+border:1px solid #e6e9ee;
+border-radius:22px;
+padding:26px;
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
+gap:10px;
+}
+
+.iconWrap{
+width:90px;
+height:90px;
+background:#fff;
+border:1px solid #e0e5ea;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+padding:10px;
+}
+
+.iconWrap img{
+width:70px;
+height:70px;
+object-fit:contain;
+}
+
+.num{
+font-size:64px;
+font-weight:900;
+margin:0;
+line-height:1;
+letter-spacing:-0.03em;
+}
+
+.label{
+font-size:18px;
+color:#5b6675;
+margin:0;
+}
+
+.label b{
+color:#0b0f14;
+}
+
+/* REALITY CHECK TILE */
+
+.box.reality .num{
+font-size:56px;
+}
+
+.pill{
+font-size:12px;
+font-weight:800;
+letter-spacing:.08em;
+text-transform:uppercase;
+color:#0b0f14;
+background:#fff;
+border:1px solid #e6e9ee;
+padding:8px 12px;
+border-radius:999px;
+}
+
+/* FOOTER */
+
+.footer{
+margin-top:40px;
+padding-top:18px;
+border-top:1px solid #e6e9ee;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.footnote{
+font-size:14px;
+color:#5b6675;
+}
+
+.logo{
+height:44px;
+width:auto;
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="canvas">
+
+<div class="kicker">Question 2 • Perfect bracket trade-offs</div>
+
+<h1>What Americans Would Sacrifice for a Perfect Bracket</h1>
+
+<p class="sub">
+Share of Americans willing to give up each item for a perfect bracket.
+</p>
+
+<div class="hero">
+
+<div class="heroLeft">
+
+<div class="heroIcon">
+<img src="https://i.postimg.cc/W1NDZcp6/download-removebg-preview.png">
+</div>
+
+<div>
+<p class="heroPct">25%</p>
+<p class="heroLabel">would give up <b>their favorite team winning</b></p>
+</div>
+
+</div>
+
+<div class="heroTag">Top trade-off</div>
+
+</div>
+
+<div class="grid">
+
+<div class="box">
+<div class="iconWrap">
+<img src="https://i.postimg.cc/Fsm1tXLB/download-1-removebg-preview-(1).png">
+</div>
+<p class="num">21%</p>
+<p class="label">would give up <b>beer for a year</b></p>
+</div>
+
+<div class="box">
+<div class="iconWrap">
+<img src="https://i.postimg.cc/vTvY8DnY/Video-Game-PNG-High-Quality-Image.png">
+</div>
+<p class="num">17%</p>
+<p class="label">would give up <b>video games for a year</b></p>
+</div>
+
+<div class="box">
+<div class="iconWrap">
+<img src="https://i.postimg.cc/k58dXBrx/download-1.jpg">
+</div>
+<p class="num">17%</p>
+<p class="label">would give up <b>fantasy football for a year</b></p>
+</div>
+
+<div class="box">
+<div class="iconWrap">
+<img src="https://i.postimg.cc/xT77JnPn/png-wedding-couple-against-transparent-background-381717903.webp">
+</div>
+<p class="num">10%</p>
+<p class="label">would skip a <b>family wedding</b></p>
+</div>
+
+<div class="box">
+<div class="iconWrap">
+<img src="https://i.postimg.cc/dtzHQnqc/images-removebg-preview.png">
+</div>
+<p class="num">5%</p>
+<p class="label">would give up <b>intimacy for a year</b></p>
+</div>
+
+<div class="box reality">
+<div class="pill">Reality check</div>
+<p class="num">40%</p>
+<p class="label">would give up <b>nothing</b></p>
+</div>
+
+</div>
+
+<div class="footer">
+
+<div class="footnote">
+Source: Action Network survey of 3,000+ U.S. workers. Percentages rounded.
+</div>
+
+<img class="logo" src="https://i.postimg.cc/YCcD38Lh/images.png">
+
+</div>
+
+</section>
+
+</body>
+</html>
